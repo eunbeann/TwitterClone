@@ -1,0 +1,9 @@
+// 절대경로 적용하기
+// 리액트에 사용할 자바스크립트를 위한 설정 파일
+
+{
+    "compilerOptions": {
+        "baseUrl": "src"
+    },
+    "include": ["src"]
+}
