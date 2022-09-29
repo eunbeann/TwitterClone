@@ -1,5 +1,9 @@
 // Import the functions you need from the SDKs you need
-import firebase from "firebase/app";
+// import firebase from "firebase/app"; 옛 버전
+// 새버전
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 // 인증모듈쓰려면 불러와야 함
 import "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
