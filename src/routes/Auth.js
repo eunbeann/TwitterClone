@@ -9,10 +9,10 @@ const Auth = () => {
     const [error, setError] = useState("")
     const toggleAccount = () => setnewAccount((prev) => !prev);
 
-    const onSocialClick = async(event) => {
+    const onSocialClick = async (event) => {
         // console.log(event.target.name);
         const {
-            target : {name},
+            target: { name },
         } = event;
         let provider;
         if (name === "gooogle") {
@@ -22,9 +22,8 @@ const Auth = () => {
         }
         const data = await authService.signInWithPopup(provider);
         console.log(data)
-        }
     };
-
+    
     const onChange = (event) => {
         const {
             target: { name, value }, } = event;
@@ -35,22 +34,22 @@ const Auth = () => {
         }
     };
 
-    const onSubmit = async (event) => {
-        event.preventDefault();
-        try {
-            let data;
-            if (newAccount) {
-                // create NewAccount
-                data = await authService.createUserWithEmailAndPassword(email, password)
-            } else {
-                //log in
-                data = await authService.signInWithEmailAndPassword(email, password);
-            }
-            console.log(data);
-        } catch (error) {
-            setError(error.message);
+const onSubmit = async (event) => {
+    event.preventDefault();
+    try {
+        let data;
+        if (newAccount) {
+            // create NewAccount
+            data = await authService.createUserWithEmailAndPassword(email, password)
+        } else {
+            //log in
+            data = await authService.signInWithEmailAndPassword(email, password);
         }
+        console.log(data);
+    } catch (error) {
+        setError(error.message);
     };
+};
 
     return (
     <div>
@@ -69,6 +68,5 @@ const Auth = () => {
         </div>
     </div>
     )
-}
-
+    };
 export default Auth;
