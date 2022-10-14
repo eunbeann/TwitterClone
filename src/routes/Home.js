@@ -37,7 +37,7 @@ const Home = () => {
     }, []);
 
     console.log(nweets);
-    
+
     return (
         <form onSubmit={onSubmit}>
             <input value={nweet} onChange={onChange} type="text" placeholder="What's on your mind?"
@@ -48,5 +48,7 @@ const Home = () => {
 )
     
 }
+
+// 2022.10.14. 17:18 (p.119, 5-액션 7)
 
 export default Home;
