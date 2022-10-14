@@ -3,6 +3,7 @@ import { dbService } from "fbase";
 
 const Home = () => {
     const [nweet, setNweet] = useState("");
+    const [nweets, setNweets] = useState([])
 
     // Create
     const onSubmit = async (event) => {
@@ -25,6 +26,7 @@ const Home = () => {
 // Read
     const getNtweets = async () => {
         const dbNweets = await dbService.collection("ntweets").get();
+        dbNweets.forEach((document) => setNweets((prev) => [document.data(), ...prev]))
         // console.log(dbNweets);
         dbNweets.forEach((document) => console.log(document.data()));
     };
@@ -34,6 +36,8 @@ const Home = () => {
         getNtweets();
     }, []);
 
+    console.log(nweets);
+    
     return (
         <form onSubmit={onSubmit}>
             <input value={nweet} onChange={onChange} type="text" placeholder="What's on your mind?"
