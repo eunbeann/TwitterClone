@@ -5,7 +5,7 @@ import Profile from "routes/Profile";
 import Navigation from "./Navigation";
 // {/* <Home />  Route 안에 component 대신 element 사용 v6 에러 수정*/
 // 상위 컴포넌트에서 받은 프롭스 구조 분해 할당으로 사용
-const AppRouter = ({ isLoggedIn }) => {
+const AppRouter = ({ isLoggedIn, userObj }) => {
     return (
         <Router>
             {/* LoggendIn이 True인 경우에만 Nav 보이게 처리하기 */}
@@ -16,7 +16,7 @@ const AppRouter = ({ isLoggedIn }) => {
             <Routes>
                 {isLoggedIn ? (
                     <>
-                    <Route exact path="/" element= { <Home /> } />
+                        <Route exact path="/" element={<Home userObj={userObj} /> } />
                     <Route exact path="/profile" element = {<Profile />} />
                     </>
                 ) : (
