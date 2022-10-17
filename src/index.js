@@ -8,7 +8,8 @@ import 'firebase/compat/firestore';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  // 콘솔로그 두 번 찍히는 거 끄기
+  // <React.StrictMode>
     <App />
-  </React.StrictMode>
+  // </React.StrictMode>
 );

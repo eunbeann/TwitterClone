@@ -26,9 +26,10 @@ const Home = () => {
 // Read
     const getNtweets = async () => {
         const dbNweets = await dbService.collection("ntweets").get();
-        dbNweets.forEach((document) => setNweets((prev) => [document.data(), ...prev]))
-        // console.log(dbNweets);
-        dbNweets.forEach((document) => console.log(document.data()));
+        dbNweets.forEach((document) => {
+            const nweetObject = { ...document.data(), id: document.id };
+            setNweets((prev) => [nweetObject, ...prev])
+        })
     };
 
     // 실제 함수 호출, dbService 관련 함수는 aynsc-await 문을 쓰는 함수는 별도로 getNweets로 구성
