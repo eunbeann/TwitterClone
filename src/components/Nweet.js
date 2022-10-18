@@ -1,7 +1,10 @@
 import { dbService } from "fbase";
+import { useState } from "react";
 
 const Nweet = ({ nweetObj, isOwner }) => {
-    const onDeleteClick = async() => {
+    const [editing, setEditing] = useState(false)
+    const [newNweet, setNewNweet] = useState(nweetObj.text)
+    const onDeleteClick = async () => {
         const ok = window.confirm("삭제하시겠습니까?");
         console.log(ok);
         if (ok) {
@@ -9,16 +12,46 @@ const Nweet = ({ nweetObj, isOwner }) => {
             const data = await dbService.doc(`nweets/${nweetObj.id}`).delete();
             console.log(data);
         }
-    }
+    };
+
+    const toggledEditing = () => setEditing((prev) => !prev);
+
+    const onChange = (event) => {
+        const {
+            target: { value },
+        } = event;
+        setNewNweet(value);
+    };
+
+    const onSubmit = async (event) => {
+        event.preventDefault();
+        // console.log(nweetObj.id, newNweet);
+        await dbService.doc(`nweets/${nweetObj.id}`).update({ text: newNweet });
+        setEditing(false);
+    };
+
     return (
         <div>
-            <h4>{nweetObj.text}</h4>
-            {isOwner && (
+            {editing ? (
                 <>
-                <button onClick={onDeleteClick}>Delete Nweet</button>
-                <button>Edit Nweet</button>
+                    <form onSubmit={onSubmit}>
+                        <input onChange={onChange} value={newNweet} required />
+                        <input type="submit" value="Update Nweet" />
+                    </form>
+                    <button onClick={toggledEditing}>Cancel</button>
                 </>
+            ) : (
+                    <>
+                        <h4>{nweetObj.text}</h4>
+                        {isOwner && (
+                            <>
+                            <button onClick={onDeleteClick}>Delete Nweet</button>
+                            <button onClick={toggledEditing}>Edit Nweet</button>
+                            </>
+                        )}        
+                    </>
             )}
+            
         </div>
     )
 }
