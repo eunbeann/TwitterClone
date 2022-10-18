@@ -7,6 +7,7 @@ import 'firebase/compat/firestore';
 // 인증모듈쓰려면 불러와야 함
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -28,3 +29,4 @@ firebase.initializeApp(firebaseConfig);
 export const firebaseInstance = firebase;
 export const authService = firebase.auth();
 export const dbService = firebase.firestore();
+export const storageService = firebase.storage();

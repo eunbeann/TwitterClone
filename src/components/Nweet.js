@@ -1,4 +1,5 @@
-import { dbService } from "fbase";
+import {
+    dbService, storageService} from "fbase";
 import { useState } from "react";
 
 const Nweet = ({ nweetObj, isOwner }) => {
@@ -6,11 +7,11 @@ const Nweet = ({ nweetObj, isOwner }) => {
     const [newNweet, setNewNweet] = useState(nweetObj.text)
     const onDeleteClick = async () => {
         const ok = window.confirm("삭제하시겠습니까?");
-        console.log(ok);
+        // console.log(ok);
         if (ok) {
-            console.log(nweetObj.id);
-            const data = await dbService.doc(`nweets/${nweetObj.id}`).delete();
-            console.log(data);
+            await dbService.doc(`nweets/${nweetObj.id}`).delete();
+            if (nweetObj.attachmentUtl !== "")
+                await storageService.refFromURL(nweetObj.attachmentUtl).delete();
         }
     };
 
@@ -32,7 +33,7 @@ const Nweet = ({ nweetObj, isOwner }) => {
 
     return (
         <div>
-            {editing ? (
+            {/* {editing ? (
                 <>
                     <form onSubmit={onSubmit}>
                         <input onChange={onChange} value={newNweet} required />
@@ -40,20 +41,18 @@ const Nweet = ({ nweetObj, isOwner }) => {
                     </form>
                     <button onClick={toggledEditing}>Cancel</button>
                 </>
-            ) : (
-                    <>
-                        <h4>{nweetObj.text}</h4>
-                        {isOwner && (
-                            <>
-                            <button onClick={onDeleteClick}>Delete Nweet</button>
-                            <button onClick={toggledEditing}>Edit Nweet</button>
-                            </>
-                        )}        
-                    </>
+            ) : ( */}
+            <h4>{nweetObj.text}</h4>
+            {nweetObj.attachmentUtl && (
+                <img src={nweetObj.attachmentUtl} width="50px" height="50px" alt="myimg"/>)}                    )}
+            {isOwner && (
+                <>
+                    <button onClick={onDeleteClick}>Delete Nweet</button>
+                    <button onClick={toggledEditing}>Edit Nweet</button>
+                </>
             )}
-            
         </div>
-    )
-}
+    );
+};
 
 export default Nweet;
