@@ -26,7 +26,7 @@ function App() {
     <>
       {init ? <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} /> : "initializing..."}
       {/* JS는 중괄호로 감싸서 사용 */}
-      <footer>&copy; {new Date().getFullYear()} Nwitter </footer>
+      {/* <footer>&copy; {new Date().getFullYear()} Nwitter </footer> */}
     </>
   );
 }
