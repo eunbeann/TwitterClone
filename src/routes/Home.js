@@ -12,23 +12,25 @@ const Home = ({ userObj }) => {
 
 
     // Create
-    const onSubmit = async (event) => {
-        event.preventDefault();
-        let attachmentUrl = "";
-        if (attachment !== "") {
-            const attachmentRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);
-            const response = await attachmentRef.putString(attachment, "data_url");
-            attachmentUrl = await response.ref.getDownloadURL();
-        }
-        await dbService.collection("nweets").add({
-                text: nweet,
-                createdAt: Date.now(),
-                creatorId: userObj.uid,
-            });
-        setNweet("");
-        setAttachment("");
-    };
-
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    let attachmentUrl = "";
+    if (attachment !== "") {
+      const attachmentRef = storageService
+        .ref()
+        .child(`${userObj.uid}/${uuidv4()}`);
+      const response = await attachmentRef.putString(attachment, "data_url");
+      attachmentUrl = await response.ref.getDownloadURL();
+    }
+    await dbService.collection("nweets").add({
+      text: nweet,
+      createdAt: Date.now(),
+      creatorId: userObj.uid,
+      attachmentUrl,
+    });
+    setNweet("");
+    setAttachment("");
+  };
     const onChange = (event) => {
         event.preventDefault();
         const {

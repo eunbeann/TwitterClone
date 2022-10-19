@@ -13,8 +13,11 @@ function App() {
     authService.onAuthStateChanged((user) => {
       // null 값을 반환하는 불확실성 제거 
       if (user) {
-        setIsLoggedIn(user);
-        setUserObj(user);
+        setUserObj({
+          uid: user.uid,
+          displayName: user.displayName,
+          updateProfile: (args) => user.updateProfile(args),
+        });
       } else {
         setIsLoggedIn(false);
       }
@@ -22,9 +25,24 @@ function App() {
     });
   }, []);
   // setInterval(() => console.log(authService.currentUser), 2000);
+
+  const refreshUser = () => {
+    const user = authService.currentUser;
+    setUserObj({
+      uid: user.uid,
+      displayName: user.displayName,
+      updateProfile: (args) => user.updateProfile(args),
+    });
+  };
+
   return (
     <>
-      {init ? <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} /> : "initializing..."}
+      {init ? (
+        < AppRouter
+        refreshUser={refreshUser}
+        isLoggedIn={isLoggedIn}
+        userObj={userObj}
+        /> ) : ( "initializing...") }
       {/* JS는 중괄호로 감싸서 사용 */}
       {/* <footer>&copy; {new Date().getFullYear()} Nwitter </footer> */}
     </>

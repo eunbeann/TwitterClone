@@ -5,9 +5,9 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 // 인증모듈쓰려면 불러와야 함
-import "firebase/auth";
-import "firebase/firestore";
-import "firebase/storage";
+// 새 버전은 경로에 /complat 추가 
+// import "firebase/storage";
+import "firebase/compat/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
