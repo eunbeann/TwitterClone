@@ -4,7 +4,6 @@ import { authService } from "fbase";
 
 function App() {
   const [init, setInit] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userObj, setUserObj] = useState(null)
 
 
@@ -19,7 +18,7 @@ function App() {
           updateProfile: (args) => user.updateProfile(args),
         });
       } else {
-        setIsLoggedIn(false);
+        setUserObj(false);
       }
       setInit(true);
     });
@@ -40,7 +39,7 @@ function App() {
       {init ? (
         < AppRouter
         refreshUser={refreshUser}
-        isLoggedIn={isLoggedIn}
+        isLoggedIn={Boolean(userObj)}
         userObj={userObj}
         /> ) : ( "initializing...") }
       {/* JS는 중괄호로 감싸서 사용 */}
