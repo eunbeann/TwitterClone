@@ -20,7 +20,10 @@ const Home = ({ userObj }) => {
 
     // 실제 함수 호출, dbService 관련 함수는 aynsc-await 문을 쓰는 함수는 별도로 getNweets로 구성
     useEffect(() => {
-        dbService.collection("nweets").onSnapshot((snapshot) => {
+        dbService
+            .collection("nweets")
+            .orderBy("createdAt", "desc")
+            .onSnapshot((snapshot) => {
             const newArray = snapshot.docs.map((document) => ({
                 id: document.id,
                 ...document.data(),
