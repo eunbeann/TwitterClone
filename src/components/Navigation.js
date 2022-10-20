@@ -13,7 +13,7 @@ const Navigation = ({userObj}) => {
               </li>
               <li>
           <Link to="/profile"
-            style={{ marginLeft: 10, display: "flex", flexDirection: "column", alignitems: "center", fontSize: 12, }}><FontAwesomeIcon icon={faUser} color={"#04AAFF"} size="2x" />
+            style={{ marginLeft: 10, display: "flex", flexDirection: "column", alignItems: "center", fontSize: 12, }}><FontAwesomeIcon icon={faUser} color={"#04AAFF"} size="2x" />
             <span style={{marginTop: 10}}>
               {userObj.displayName
               ? `${userObj.displayName}의 Profile` : "Profile" }

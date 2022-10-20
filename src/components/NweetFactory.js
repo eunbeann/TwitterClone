@@ -5,13 +5,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const NweetFactory = ({userObj}) => {
+  
     const [nweet, setNweet] = useState("");
     const [attachment, setAttachment] = useState("");
 
         // Create
   const onSubmit = async (event) => {
+    console.log(userObj.uid)
       event.preventDefault();
-      if (nweet == "") {
+    if (nweet === "") {
+        console.log(userObj.uid, "nweet is Empty")
           return;
       }
     let attachmentUrl = "";
@@ -22,12 +25,13 @@ const NweetFactory = ({userObj}) => {
       const response = await attachmentRef.putString(attachment, "data_url");
       attachmentUrl = await response.ref.getDownloadURL();
     }
-    await dbService.collection("nweets").add({
+    const nweetObj = {
       text: nweet,
       createdAt: Date.now(),
       creatorId: userObj.uid,
       attachmentUrl,
-    });
+    };
+    await dbService.collection("nweets").add({nweetObj});
     setNweet("");
     setAttachment("");
   };
