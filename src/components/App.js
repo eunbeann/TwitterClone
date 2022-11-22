@@ -42,7 +42,7 @@ function App() {
         isLoggedIn={Boolean(userObj)}
         userObj={userObj}
         /> ) : ( "initializing...") }
-      {/* JS는 중괄호로 감싸서 사용 */}
+      {/* JS는 중괄호로 감싸서 내부에서 사용 */}
       {/* <footer>&copy; {new Date().getFullYear()} Nwitter </footer> */}
     </>
   );
